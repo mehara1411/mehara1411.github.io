@@ -192,6 +192,7 @@ p {
   /* Change Background Color */
   background: #fdfdfd;
   z-index: 9999; }
+
   .preloader .spin {
     position: absolute;
     top: 45%;
@@ -203,6 +204,23 @@ p {
     transform: translate(-50%, -50%);
     width: 40px;
     height: 40px; }
+
+@media only screen and (max-width: 768px) {
+  .preloader .spin {
+    position: fixed;
+    top: 30%;
+    left: 30%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+  }
+}
+
+
     .preloader .spin .cube1, .preloader .spin .cube2 {
       background-color: transparent;
       width: 150px;
