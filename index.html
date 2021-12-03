@@ -1442,34 +1442,40 @@
 				    </div>
 				    <div class="col-lg-8">
 					<div class="contact-form">
-					    <form id="contact-form" action="assets/contact.php" method="post" data-toggle="validator">
+						<div class="mt-30 alert alert-success alert-dismissible d-none hau-alert" role="alert">
+                                                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                       <span aria-hidden="true">&times;</span>
+                                                   </button>
+                                                   <strong>Obrigado!</strong> Ita nia mensajem ami simu ona!
+                                                 </div>
+					    <form id="contact-form" name="aileba-contact-form">
 						<div class="row">
 						    <div class="col-lg-6">
 							<div class="single-form form-group">
-							    <input type="text" name="name" placeholder="ita nia Naran"
-								data-error="Halo favor hatama ita nia Naran." required="required">
-							    <div class="help-block with-errors"></div>
+							    <input type="text" name="Naran" name="Naran" id="Naran" placeholder="ita nia Naran" required="required">
+							   <!-- <div class="help-block with-errors"></div> -->
 							</div> <!-- single form -->
 						    </div>
 						    <div class="col-lg-6">
 							<div class="single-form form-group">
-							    <input type="email" name="email" placeholder="Ita nia Numeru WA/Telegram"
-								data-error="Halo favor hatama ita nia email ne'ebe Validu."
-								required="required">
-							    <div class="help-block with-errors"></div>
+							    <input type="text" name="numeru" name="numeru" id="numeru" placeholder="Ita nia Numeru WA/Telegram" required="required">
+							    <!-- <div class="help-block with-errors"></div> -->
 							</div> <!-- single form -->
 						    </div>
 						    <div class="col-lg-12">
 							<div class="single-form form-group">
-							    <textarea name="message" placeholder="Ita nia Mensajem"
-								data-error="Please,leave us a message." required="required"></textarea>
-							    <div class="help-block with-errors"></div>
+							    <textarea id="message" name="mensajem" placeholder="Ita nia Mensajem" required="required"></textarea>
+							   <!-- <div class="help-block with-errors"></div> -->
 							</div> <!-- single form -->
 						    </div>
 						    <p class="form-message"></p>
 						    <div class="col-lg-12">
-							<div class="single-form form-group">
-							    <button class="main-btn" type="submit">MANDA AGORA</button>
+							<div class="single-form form-group form-submit"> 
+							    <button class="main-btn btn-manda" type="submit">MANDA MENSAJEM</button>
+							    <button class="btn btn-primary btn-loading d-none" type="button" disabled>
+							    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+								    Loading...
+							    </button>
 							</div> <!-- single form -->
 						    </div>
 						</div> <!-- row -->
@@ -1619,6 +1625,34 @@
     
     <!--====== Main js ======-->
     <script src="assets/js/main.js"></script>
+    
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyqK0TOLwsquGtXdifzq6yj3KZPmpLedEaYbh-hubGAgeDDqWo/exec'
+        const form = document.forms['aileba-contact-form']
+        const btnManda = document.querySelector('.btn-manda');
+        const btnLoading = document.querySelector('.btn-loading');
+        const Haualert = document.querySelector('.hau-alert');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            // bainhira butaun submit klik ona
+            // hamosu butaun loading, halakon butaun manda
+            btnLoading.classList.toggle('d-none');
+            btnManda.classList.toggle('d-none');
+            fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                .then(response => {
+                    // hamosu butaun manda, halakon butaun loading
+                    btnLoading.classList.toggle('d-none');
+                    btnManda.classList.toggle('d-none');
+                    // hamosu alert
+                    Haualert.classList.toggle('d-none');
+                    // reset form
+                    form.reset();
+                    console.log('Success!', response);
+                })
+                .catch(error => console.error('Error!', error.message));
+        })
+        </script>
 
 </body>
 
